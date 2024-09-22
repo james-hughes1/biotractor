@@ -48,26 +48,34 @@ function playGame() {
         const { row, col } = bluePosition;
         let newRow = row;
         let newCol = col;
+
+        // Handle farmhouse refuelling
+        if (bluePosition.row === 5 && bluePosition.col === 5) {
+            if (blueFuel < 100) {
+                blueFuel++;
+                blueDirection = 'stop';
+            } else {
+                blueDirection = 'right';
+            }
+        }
+
+        // Handle movement
         if (blueFuel > 0) {
             if (blueDirection === 'up') newRow=(newRow+gridSize-1)%gridSize;
             if (blueDirection === 'down') newRow=(newRow+1)%gridSize;
             if (blueDirection === 'left') newCol=(newCol+gridSize-1)%gridSize;
             if (blueDirection === 'right') newCol=(newCol+1)%gridSize;
+            blueFuel--;
         }
 
+        // Update bluePosition
         if (newRow !== row || newCol !== col) {
-            // If blue moves
             bluePosition = { row: newRow, col: newCol }; // Update position
-            if (bluePosition.row === 5 && bluePosition.col === 5) {
-                blueDirection = 'stop';
-            }
-            createGrid(gridSize); // Re-create the grid with updated blue square position
-            blueFuel--;
-            updateFuelBar();
-        } else {
-            if (blueFuel < 100) blueFuel++;
-            updateFuelBar();
         }
+
+        createGrid(gridSize);
+        updateFuelBar();
+
     }, 200);
 }
 
