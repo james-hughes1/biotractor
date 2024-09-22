@@ -1,16 +1,16 @@
 /* Style for the grid */
 #gridContainer {
     display: grid;
-    grid-template-columns: repeat(3, 100px); /* 3 columns initially */
-    grid-gap: 5px; /* Space between squares */
+    grid-template-columns: repeat(10, 10px); /* 10 columns initially */
+    grid-gap: 2px; /* Space between squares */
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 4px;
 }
 
 /* Style for the squares */
 .square {
-    width: 100px;
-    height: 100px;
+    width: 10px;
+    height: 10px;
     background-color: rgb(85, 48, 13) color
 }
 
