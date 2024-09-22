@@ -1,26 +1,52 @@
-let intervalId;
+// Configuration
+const gridSize = 10;  // You can scale this to 11 for an 11x11 grid
+let bluePosition = { row: 0, col: 0 }; // Initial blue square position
 
-// Function to change the color of the square
-const changeColor = () => {
-    const square = document.getElementById("colorSquare");
+// Function to create a grid
+function createGrid(size) {
+    const gridContainer = document.getElementById('gridContainer');
+    gridContainer.style.gridTemplateColumns = `repeat(${size}, 100px)`; // Adjust columns based on grid size
+    gridContainer.innerHTML = ''; // Clear existing grid
 
-    const colors = ["red", "blue", "yellow"];
-    let currentColorIndex = 0;
+    for (let row = 0; row < size; row++) {
+        for (let col = 0; col < size; col++) {
+            const square = document.createElement('div');
+            square.classList.add('square');
+            square.dataset.row = row;
+            square.dataset.col = col;
 
-    intervalId = setInterval(() => {
-        currentColorIndex = (currentColorIndex + 1) % colors.length;
-        square.style.backgroundColor = colors[currentColorIndex];
-    }, 1000);
+            // Make the initial square blue
+            if (row === bluePosition.row && col === bluePosition.col) {
+                square.classList.add('blue');
+            }
+
+            gridContainer.appendChild(square);
+        }
+    }
 }
 
-document.getElementById("startButton").addEventListener("click", () => {
-    changeColor();
-    document.getElementById("startButton").disabled = true;
-    document.getElementById("pauseButton").disabled = false;
-});
+// Function to move the blue square
+function moveBlueSquare(direction) {
+    const { row, col } = bluePosition;
+    let newRow = row;
+    let newCol = col;
 
-document.getElementById("pauseButton").addEventListener("click", () => {
-    clearInterval(intervalId);
-    document.getElementById("pauseButton").disabled = true;
-    document.getElementById("startButton").disabled = false;
-});
+    if (direction === 'up') newRow=(newRow+gridSize-1)%gridSize;
+    if (direction === 'down') newRow=(newRow+1)%gridSize;
+    if (direction === 'left') newCol=(newCol+gridSize-1)%gridSize;
+    if (direction === 'right') newCol=(newCol+1)%gridSize;
+
+    if (newRow !== row || newCol !== col) {
+        bluePosition = { row: newRow, col: newCol }; // Update position
+        createGrid(gridSize); // Re-create the grid with updated blue square position
+    }
+}
+
+// Initialize the grid
+createGrid(gridSize);
+
+// Add event listeners for arrow buttons
+document.getElementById('upButton').addEventListener('click', () => moveBlueSquare('up'));
+document.getElementById('downButton').addEventListener('click', () => moveBlueSquare('down'));
+document.getElementById('leftButton').addEventListener('click', () => moveBlueSquare('left'));
+document.getElementById('rightButton').addEventListener('click', () => moveBlueSquare('right'));

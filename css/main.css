@@ -1,19 +1,32 @@
-#colorSquare {
-    width: 200px;
-    height: 200px;
-    background-color: red; /* Initial color */
-    margin: 100px auto; /* Centering the square */
-    transition: background-color 1s ease; /* Smooth transition between colors */
+/* Style for the grid */
+#gridContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 100px); /* 3 columns initially */
+    grid-gap: 5px; /* Space between squares */
+    justify-content: center;
+    margin-bottom: 20px;
 }
 
+/* Style for the squares */
+.square {
+    width: 100px;
+    height: 100px;
+    background-color: rgb(85, 48, 13) color
+}
+
+/* Style for the blue square */
+.blue {
+    background-color: blue; /* Special blue square */
+}
+
+/* Style for arrow buttons */
 #buttonContainer {
     display: flex;
-    justify-content: center; /* Center the buttons horizontally */
-    gap: 10px; /* Add some space between the buttons */
-    margin-top: 20px; /* Optional margin for spacing */
+    justify-content: center;
+    gap: 10px;
 }
 
 button {
-    padding: 10px 20px;
+    padding: 10px;
     font-size: 16px;
 }
