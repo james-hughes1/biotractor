@@ -1,6 +1,6 @@
 // Configuration
 const gridSize = 11;
-let bluePosition = { row: 5, col: 5 }; // Initial blue square position
+let bluePosition = { row: 3, col: 3 }; // Initial blue square position
 let blueDirection = 'stop';
 let blueFuel = 100;
 
@@ -39,7 +39,7 @@ function updateFuelBar() {
 // Function to automatically move the blue square
 function playGame() {
     // Initialisation
-    let bluePosition = { row: 5, col: 5 }; // Initial blue square position
+    let bluePosition = { row: 3, col: 3 }; // Initial blue square position
     let blueDirection = 'stop';
     let blueFuel = 100;
 
@@ -71,9 +71,6 @@ function playGame() {
         
     }, 200);
 }
-
-createGrid(gridSize);
-playGame();
 
 // Swipe detection variables
 let touchStartX = 0;
@@ -139,3 +136,6 @@ document.addEventListener('keydown', function(event) {
             break;
     }
 });
+
+createGrid(gridSize);
+playGame();
