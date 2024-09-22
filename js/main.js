@@ -49,14 +49,8 @@ function playGame() {
         let newRow = row;
         let newCol = col;
 
-        // Handle farmhouse refuelling
-        if (bluePosition.row === 5 && bluePosition.col === 5) {
-            if (blueFuel < 100) {
-                blueFuel++;
-                blueDirection = 'stop';
-            } else {
-                blueDirection = 'right';
-            }
+        if (bluePosition.row === 5 && bluePosition.col === 5 && blueFuel < 100) {
+            blueFuel++;
         }
 
         // Handle movement
@@ -71,6 +65,15 @@ function playGame() {
         // Update bluePosition
         if (newRow !== row || newCol !== col) {
             bluePosition = { row: newRow, col: newCol }; // Update position
+            // Handle farmhouse stopping (only stop once)
+            if (bluePosition.row === 5 && bluePosition.col === 5) {
+                if (blueFuel < 100) {
+                    blueFuel++;
+                    blueDirection = 'stop';
+                } else {
+                    blueDirection = 'right';
+                }
+            }
         }
 
         createGrid(gridSize);
