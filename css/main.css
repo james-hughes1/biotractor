@@ -1,0 +1,7 @@
+#colorSquare {
+    width: 200px;
+    height: 200px;
+    background-color: red; /* Initial color */
+    margin: 100px auto; /* Centering the square */
+    transition: background-color 1s ease; /* Smooth transition between colors */
+}
