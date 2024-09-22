@@ -2,6 +2,7 @@
 const gridSize = 11;
 let bluePosition = { row: 5, col: 5 }; // Initial blue square position
 let blueDirection = 'stop';
+let blueFuel = 100;
 
 // Function to create a grid
 function createGrid(size) {
@@ -30,29 +31,49 @@ function createGrid(size) {
     }
 }
 
+function updateFuelBar() {
+    const fuelBar = document.getElementById('fuelBar');
+    fuelBar.style.width = blueFuel + '%'; // Assuming blueFuel is a percentage (0 to 100)
+}
+
 // Function to automatically move the blue square
-function moveBlueSquare() {
+function playGame() {
+    // Initialisation
+    let bluePosition = { row: 5, col: 5 }; // Initial blue square position
+    let blueDirection = 'stop';
+    let blueFuel = 100;
+
+    // Game loop
     intervalId = setInterval(() => {
         const { row, col } = bluePosition;
         let newRow = row;
         let newCol = col;
-
-        if (blueDirection === 'up') newRow=(newRow+gridSize-1)%gridSize;
-        if (blueDirection === 'down') newRow=(newRow+1)%gridSize;
-        if (blueDirection === 'left') newCol=(newCol+gridSize-1)%gridSize;
-        if (blueDirection === 'right') newCol=(newCol+1)%gridSize;
+        if (blueFuel > 0) {
+            if (blueDirection === 'up') newRow=(newRow+gridSize-1)%gridSize;
+            if (blueDirection === 'down') newRow=(newRow+1)%gridSize;
+            if (blueDirection === 'left') newCol=(newCol+gridSize-1)%gridSize;
+            if (blueDirection === 'right') newCol=(newCol+1)%gridSize;
+        }
 
         if (newRow !== row || newCol !== col) {
+            // If blue moves
             bluePosition = { row: newRow, col: newCol }; // Update position
             if (bluePosition.row === 5 && bluePosition.col === 5) {
                 blueDirection = 'stop';
             }
             createGrid(gridSize); // Re-create the grid with updated blue square position
+            blueFuel--;
+            updateFuelBar();
+        } else {
+            if (blueFuel < 100) blueFuel++;
+            updateFuelBar();
         }
+        
     }, 200);
 }
 
-moveBlueSquare();
+createGrid(gridSize);
+playGame();
 
 // Swipe detection variables
 let touchStartX = 0;
@@ -79,7 +100,7 @@ document.addEventListener('touchend', function(event) {
     event.preventDefault(); // Prevent scrolling
 });
 
-// Function to detect the swipe direction and call moveBlueSquare()
+// Function to detect the swipe direction
 function handleSwipeGesture() {
     const deltaX = touchEndX - touchStartX;
     const deltaY = touchEndY - touchStartY;

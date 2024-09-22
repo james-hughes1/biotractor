@@ -23,6 +23,19 @@
     background-color: blue; /* Special blue square */
 }
 
+#fuelBarContainer {
+    width: 100%;
+    height: 20px;
+    background-color: gray; /* Background of the bar */
+    border: 1px solid black;
+}
+
+#fuelBar {
+    height: 100%;
+    width: 100%; /* Full initially */
+    background-color: red; /* Color of the fuel bar */
+}
+
 /* For very small screens (e.g., phones in portrait mode) */
 @media (max-width: 480px) {
     #gridContainer {
