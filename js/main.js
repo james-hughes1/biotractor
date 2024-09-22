@@ -6,7 +6,6 @@ let blueDirection = 'up';
 // Function to create a grid
 function createGrid(size) {
     const gridContainer = document.getElementById('gridContainer');
-    gridContainer.style.gridTemplateColumns = `repeat(${size}, 20px)`; // Adjust columns based on grid size
     gridContainer.innerHTML = ''; // Clear existing grid
 
     for (let row = 0; row < size; row++) {
@@ -46,6 +45,47 @@ function moveBlueSquare() {
 }
 
 moveBlueSquare();
+
+// Swipe detection variables
+let touchStartX = 0;
+let touchStartY = 0;
+let touchEndX = 0;
+let touchEndY = 0;
+
+// Listen for touchstart event to detect the starting position
+document.addEventListener('touchstart', function(event) {
+    touchStartX = event.changedTouches[0].screenX;
+    touchStartY = event.changedTouches[0].screenY;
+});
+
+// Listen for touchend event to detect the ending position and determine swipe direction
+document.addEventListener('touchend', function(event) {
+    touchEndX = event.changedTouches[0].screenX;
+    touchEndY = event.changedTouches[0].screenY;
+    handleSwipeGesture();
+});
+
+// Function to detect the swipe direction and call moveBlueSquare()
+function handleSwipeGesture() {
+    const deltaX = touchEndX - touchStartX;
+    const deltaY = touchEndY - touchStartY;
+
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        // Horizontal swipe
+        if (deltaX > 0) {
+            blueDirection = 'right'; // Swipe right
+        } else {
+            blueDirection = 'left'; // Swipe left
+        }
+    } else {
+        // Vertical swipe
+        if (deltaY > 0) {
+            blueDirection = 'down'; // Swipe down
+        } else {
+            blueDirection = 'up'; // Swipe up
+        }
+    }
+}
 
 // Add event listeners for arrow buttons
 document.getElementById('upButton').addEventListener('click', () => {blueDirection = 'up'});
