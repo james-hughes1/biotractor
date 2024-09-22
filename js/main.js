@@ -59,16 +59,15 @@ function playGame() {
             if (blueDirection === 'down') newRow=(newRow+1)%gridSize;
             if (blueDirection === 'left') newCol=(newCol+gridSize-1)%gridSize;
             if (blueDirection === 'right') newCol=(newCol+1)%gridSize;
-            blueFuel--;
         }
 
         // Update bluePosition
         if (newRow !== row || newCol !== col) {
             bluePosition = { row: newRow, col: newCol }; // Update position
+            blueFuel--; // Use fuel
             // Handle farmhouse stopping (only stop once)
             if (bluePosition.row === 5 && bluePosition.col === 5) {
                 if (blueFuel < 100) {
-                    blueFuel++;
                     blueDirection = 'stop';
                 } else {
                     blueDirection = 'right';
