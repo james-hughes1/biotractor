@@ -1,3 +1,5 @@
+let intervalId;
+
 // Function to change the color of the square
 const changeColor = () => {
     const square = document.getElementById("colorSquare");
