@@ -17,3 +17,9 @@ const changeColor = () => {
         square.style.backgroundColor = colors[currentColorIndex];
     }, 10000); // 10000ms = 10 seconds
 }
+
+// Adding event listener to the button
+document.getElementById("startButton").addEventListener("click", () => {
+    changeColor();
+    document.getElementById("startButton").disabled = true; // Disable button after clicking
+});
