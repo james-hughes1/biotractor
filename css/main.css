@@ -19,19 +19,6 @@
     background-color: blue; /* Special blue square */
 }
 
-/* Style for arrow buttons */
-#buttonContainer {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
-
-button {
-    padding: 10px;
-    font-size: 16px;
-}
-
-
 /* For very small screens (e.g., phones in portrait mode) */
 @media (max-width: 480px) {
     #gridContainer {

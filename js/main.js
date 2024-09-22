@@ -87,8 +87,20 @@ function handleSwipeGesture() {
     }
 }
 
-// Add event listeners for arrow buttons
-document.getElementById('upButton').addEventListener('click', () => {blueDirection = 'up'});
-document.getElementById('downButton').addEventListener('click', () => {blueDirection = 'down'});
-document.getElementById('leftButton').addEventListener('click', () => {blueDirection = 'left'});
-document.getElementById('rightButton').addEventListener('click', () => {blueDirection = 'right'});
+// Add listeners for arrow key controls
+document.addEventListener('keydown', function(event) {
+    switch (event.key) {
+        case 'ArrowUp':
+            blueDirection = 'up';
+            break;
+        case 'ArrowDown':
+            blueDirection = 'down';
+            break;
+        case 'ArrowLeft':
+            blueDirection = 'left';
+            break;
+        case 'ArrowRight':
+            blueDirection = 'right';
+            break;
+    }
+});
