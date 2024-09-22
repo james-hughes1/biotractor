@@ -39,9 +39,9 @@ function updateFuelBar() {
 // Function to automatically move the blue square
 function playGame() {
     // Initialisation
-    let bluePosition = { row: 3, col: 3 }; // Initial blue square position
-    let blueDirection = 'stop';
-    let blueFuel = 100;
+    bluePosition = { row: 3, col: 3 }; // Initial blue square position
+    blueDirection = 'down';
+    blueFuel = 50;
 
     // Game loop
     intervalId = setInterval(() => {
