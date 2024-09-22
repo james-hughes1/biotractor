@@ -1,11 +1,11 @@
 // Configuration
-const gridSize = 3;  // You can scale this to 11 for an 11x11 grid
+const gridSize = 11;
 let bluePosition = { row: 0, col: 0 }; // Initial blue square position
 
 // Function to create a grid
 function createGrid(size) {
     const gridContainer = document.getElementById('gridContainer');
-    gridContainer.style.gridTemplateColumns = `repeat(${size}, 10px)`; // Adjust columns based on grid size
+    gridContainer.style.gridTemplateColumns = `repeat(${size}, 20px)`; // Adjust columns based on grid size
     gridContainer.innerHTML = ''; // Clear existing grid
 
     for (let row = 0; row < size; row++) {

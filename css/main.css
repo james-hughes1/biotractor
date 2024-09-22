@@ -1,7 +1,7 @@
 /* Style for the grid */
 #gridContainer {
     display: grid;
-    grid-template-columns: repeat(10, 10px); /* 10 columns initially */
+    grid-template-columns: repeat(11, 20px); /* 10 columns initially */
     grid-gap: 2px; /* Space between squares */
     justify-content: center;
     margin-bottom: 4px;
@@ -9,9 +9,9 @@
 
 /* Style for the squares */
 .square {
-    width: 10px;
-    height: 10px;
-    background-color: rgb(85, 48, 13) color;
+    width: 20px;
+    height: 20px;
+    background-color: rgb(92, 56, 22);
 }
 
 /* Style for the blue square */
