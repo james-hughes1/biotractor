@@ -1,16 +1,16 @@
 /* Style for the grid */
 #gridContainer {
     display: grid;
-    grid-template-columns: repeat(11, 20px); /* 10 columns initially */
-    grid-gap: 2px; /* Space between squares */
+    grid-template-columns: repeat(11, 40px); /* 10 columns initially */
+    grid-gap: 4px; /* Space between squares */
     justify-content: center;
-    margin-bottom: 4px;
+    margin-bottom: 8px;
 }
 
 /* Style for the squares */
 .square {
-    width: 20px;
-    height: 20px;
+    width: 40px;
+    height: 40px;
     background-color: rgb(92, 56, 22);
 }
 
@@ -29,4 +29,18 @@
 button {
     padding: 10px;
     font-size: 16px;
+}
+
+
+/* For very small screens (e.g., phones in portrait mode) */
+@media (max-width: 480px) {
+    #gridContainer {
+        grid-template-columns: repeat(11, 20px); /* 2 columns of 50px squares */
+        grid-gap: 2px;
+    }
+    
+    .square {
+        width: 20px;
+        height: 20px; /* Even smaller squares */
+    }
 }
