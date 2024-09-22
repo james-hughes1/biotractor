@@ -14,6 +14,10 @@
     background-color: rgb(92, 56, 22);
 }
 
+.red {
+    background-color: red;
+}
+
 /* Style for the blue square */
 .blue {
     background-color: blue; /* Special blue square */

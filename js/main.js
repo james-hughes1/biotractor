@@ -1,7 +1,7 @@
 // Configuration
 const gridSize = 11;
-let bluePosition = { row: 0, col: 0 }; // Initial blue square position
-let blueDirection = 'up';
+let bluePosition = { row: 5, col: 5 }; // Initial blue square position
+let blueDirection = 'stop';
 
 // Function to create a grid
 function createGrid(size) {
@@ -14,6 +14,11 @@ function createGrid(size) {
             square.classList.add('square');
             square.dataset.row = row;
             square.dataset.col = col;
+
+            // Farmhouse
+            if (row === 5 && col === 5) {
+                square.classList.add('red');
+            }
 
             // Make the initial square blue
             if (row === bluePosition.row && col === bluePosition.col) {
@@ -39,9 +44,12 @@ function moveBlueSquare() {
 
         if (newRow !== row || newCol !== col) {
             bluePosition = { row: newRow, col: newCol }; // Update position
+            if (bluePosition.row === 5 && bluePosition.col === 5) {
+                blueDirection = 'stop';
+            }
             createGrid(gridSize); // Re-create the grid with updated blue square position
         }
-    }, 100);
+    }, 200);
 }
 
 moveBlueSquare();
@@ -56,6 +64,11 @@ let touchEndY = 0;
 document.addEventListener('touchstart', function(event) {
     touchStartX = event.changedTouches[0].screenX;
     touchStartY = event.changedTouches[0].screenY;
+    event.preventDefault(); // Prevent scrolling
+});
+
+document.addEventListener('touchmove', function(event) {
+    event.preventDefault(); // Prevent scrolling while swiping
 });
 
 // Listen for touchend event to detect the ending position and determine swipe direction
@@ -63,6 +76,7 @@ document.addEventListener('touchend', function(event) {
     touchEndX = event.changedTouches[0].screenX;
     touchEndY = event.changedTouches[0].screenY;
     handleSwipeGesture();
+    event.preventDefault(); // Prevent scrolling
 });
 
 // Function to detect the swipe direction and call moveBlueSquare()
