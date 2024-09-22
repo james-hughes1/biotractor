@@ -1,5 +1,5 @@
 // Configuration
-const gridSize = 10;  // You can scale this to 11 for an 11x11 grid
+const gridSize = 3;  // You can scale this to 11 for an 11x11 grid
 let bluePosition = { row: 0, col: 0 }; // Initial blue square position
 
 // Function to create a grid
