@@ -1,8 +1,8 @@
 // Configuration
 const gridSize = 11;
 let bluePosition = { row: 3, col: 3 }; // Initial blue square position
-let blueDirection = 'stop';
-let blueFuel = 100;
+let blueDirection = 'down';
+let blueFuel = 50;
 
 // Function to create a grid
 function createGrid(size) {
@@ -68,7 +68,6 @@ function playGame() {
             if (blueFuel < 100) blueFuel++;
             updateFuelBar();
         }
-        
     }, 200);
 }
 
