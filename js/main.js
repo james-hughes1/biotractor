@@ -18,12 +18,10 @@ function createGrid(size, cropGrid) {
             square.dataset.col = col;
 
             // Crops
-            if (cropGrid[row][col] > 0) {
-                square.classList.add('green');
-            }
-
             if (cropGrid[row][col] > 9) {
                 square.classList.add('yellow');
+            } else if (cropGrid[row][col] > 0) {
+                square.classList.add('green');
             }
 
             // Farmhouse
@@ -182,13 +180,15 @@ document.addEventListener('keydown', function(event) {
 });
 
 // Prevent scrolling
-scrollTop = window.scrollY || document.documentElement.scrollTop;
-scrollLeft = window.scrollX || document.documentElement.scrollLeft;
+let scrollTop = window.scrollY || document.documentElement.scrollTop;
+let scrollLeft = window.scrollX || document.documentElement.scrollLeft;
 
 // if any scroll is attempted,
 // set this to the previous value
 window.onscroll = function () {
-    window.scrollTo(scrollLeft, scrollTop);
+    window.scrollTo(scrollLeft, scrollTop); // Prevent scrolling
+    scrollTop = window.scrollY || document.documentElement.scrollTop; // Update values
+    scrollLeft = window.scrollX || document.documentElement.scrollLeft;
 };
 
 playGame();
