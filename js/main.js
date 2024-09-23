@@ -91,6 +91,9 @@ function playGame() {
             blueFuel++;
         }
 
+        // Grow the crops
+        growCrops(cropGrid);
+
         // Handle movement
         if (blueFuel > 0) {
             if (blueDirection === 'up') newRow=(newRow+gridSize-1)%gridSize;
@@ -102,7 +105,7 @@ function playGame() {
         // Update bluePosition
         if (newRow !== row || newCol !== col) {
             bluePosition = { row: newRow, col: newCol }; // Update position
-            cropGrid[newRow][newCol] = 0; // Destroy crop
+            cropGrid[newRow][newCol] = 1; // Destroy crop
             blueFuel--; // Use fuel
             // Handle farmhouse stopping (only stop once)
             if (bluePosition.row === farmhousePos && bluePosition.col === farmhousePos) {
