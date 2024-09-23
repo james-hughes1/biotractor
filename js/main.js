@@ -1,11 +1,12 @@
 // Configuration
 const gridSize = 11;
+const farmhousePos = Math.floor(gridSize / 2)
 let bluePosition = { row: 3, col: 3 }; // Initial blue square position
 let blueDirection = 'down';
 let blueFuel = 50;
 
 // Function to create a grid
-function createGrid(size) {
+function createGrid(size, cropGrid) {
     const gridContainer = document.getElementById('gridContainer');
     gridContainer.innerHTML = ''; // Clear existing grid
 
@@ -16,8 +17,17 @@ function createGrid(size) {
             square.dataset.row = row;
             square.dataset.col = col;
 
+            // Crops
+            if (cropGrid[row][col] > 0) {
+                square.classList.add('green');
+            }
+
+            if (cropGrid[row][col] > 9) {
+                square.classList.add('yellow');
+            }
+
             // Farmhouse
-            if (row === 5 && col === 5) {
+            if (row === farmhousePos && col === farmhousePos) {
                 square.classList.add('red');
             }
 
@@ -36,12 +46,40 @@ function updateFuelBar() {
     fuelBar.style.width = blueFuel + '%'; // Assuming blueFuel is a percentage (0 to 100)
 }
 
+// Grow crops
+function growCrops(cropGrid) {
+    for (let row = 0; row < gridSize; row++) {
+        for (let col = 0; col < gridSize; col++) {
+            if (cropGrid[row][col] > 0 && cropGrid[row][col] < 10) {
+                cropGrid[row][col]++;
+            }
+        }
+    }
+    return cropGrid
+}
+
 // Function to automatically move the blue square
 function playGame() {
     // Initialisation
     bluePosition = { row: 3, col: 3 }; // Initial blue square position
     blueDirection = 'down';
-    blueFuel = 50;
+    blueFuel = 75;
+
+    // Create crops
+    let cropGrid = [];
+    for (let row = 0; row < gridSize; row++) {
+        cropGrid[row] = [];
+        for (let col = 0; col < gridSize; col++) {
+            if (row != farmhousePos && col != farmhousePos && Math.random() > 0.8) {
+                cropGrid[row][col] = 1;
+            } else {
+                cropGrid[row][col] = 0;
+            }
+        }
+    }
+
+    // Initial display
+    createGrid(gridSize, cropGrid);
 
     // Game loop
     intervalId = setInterval(() => {
@@ -49,7 +87,7 @@ function playGame() {
         let newRow = row;
         let newCol = col;
 
-        if (bluePosition.row === 5 && bluePosition.col === 5 && blueFuel < 100) {
+        if (bluePosition.row === farmhousePos && bluePosition.col === farmhousePos && blueFuel < 100) {
             blueFuel++;
         }
 
@@ -64,9 +102,10 @@ function playGame() {
         // Update bluePosition
         if (newRow !== row || newCol !== col) {
             bluePosition = { row: newRow, col: newCol }; // Update position
+            cropGrid[newRow][newCol] = 0; // Destroy crop
             blueFuel--; // Use fuel
             // Handle farmhouse stopping (only stop once)
-            if (bluePosition.row === 5 && bluePosition.col === 5) {
+            if (bluePosition.row === farmhousePos && bluePosition.col === farmhousePos) {
                 if (blueFuel < 100) {
                     blueDirection = 'stop';
                 } else {
@@ -75,9 +114,8 @@ function playGame() {
             }
         }
 
-        createGrid(gridSize);
+        createGrid(gridSize, cropGrid);
         updateFuelBar();
-
     }, 200);
 }
 
@@ -91,11 +129,6 @@ let touchEndY = 0;
 document.addEventListener('touchstart', function(event) {
     touchStartX = event.changedTouches[0].screenX;
     touchStartY = event.changedTouches[0].screenY;
-    event.preventDefault(); // Prevent scrolling
-});
-
-document.addEventListener('touchmove', function(event) {
-    event.preventDefault(); // Prevent scrolling while swiping
 });
 
 // Listen for touchend event to detect the ending position and determine swipe direction
@@ -103,7 +136,6 @@ document.addEventListener('touchend', function(event) {
     touchEndX = event.changedTouches[0].screenX;
     touchEndY = event.changedTouches[0].screenY;
     handleSwipeGesture();
-    event.preventDefault(); // Prevent scrolling
 });
 
 // Function to detect the swipe direction
@@ -146,5 +178,14 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
-createGrid(gridSize);
+// Prevent scrolling
+scrollTop = window.scrollY || document.documentElement.scrollTop;
+scrollLeft = window.scrollX || document.documentElement.scrollLeft;
+
+// if any scroll is attempted,
+// set this to the previous value
+window.onscroll = function () {
+    window.scrollTo(scrollLeft, scrollTop);
+};
+
 playGame();

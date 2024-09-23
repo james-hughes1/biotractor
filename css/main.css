@@ -14,6 +14,14 @@
     background-color: rgb(92, 56, 22);
 }
 
+.green {
+    background-color: green;
+}
+
+.yellow {
+    border-color: yellow;
+}
+
 .red {
     background-color: red;
 }
