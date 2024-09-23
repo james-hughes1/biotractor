@@ -51,7 +51,7 @@ function growCrops(cropGrid) {
     for (let row = 0; row < gridSize; row++) {
         for (let col = 0; col < gridSize; col++) {
             if (cropGrid[row][col] > 0 && cropGrid[row][col] < 10) {
-                cropGrid[row][col]++;
+                cropGrid[row][col] = cropGrid[row][col] + 1;
             }
         }
     }
