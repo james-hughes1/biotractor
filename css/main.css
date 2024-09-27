@@ -26,6 +26,10 @@
     background-color: red;
 }
 
+.fox {
+    background-color: orange;
+}
+
 /* Style for the blue square */
 .blue {
     background-color: blue; /* Special blue square */
@@ -47,6 +51,7 @@
 #cropBarContainer {
     width: 100%;
     height: 20px;
+    margin-bottom: 10px;
     background-color: gray; /* Background of the bar */
     border: 1px solid black;
 }

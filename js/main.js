@@ -2,6 +2,7 @@
 const gridSize = 11;
 const farmhousePos = Math.floor(gridSize / 2)
 let bluePosition = { row: 3, col: 3 }; // Initial blue square position
+let foxPosition = { row: 8, col: 8 }; // Fox position
 let blueDirection = 'down';
 let blueFuel = 50;
 let cropStore = 50;
@@ -21,18 +22,15 @@ function createGrid(size, cropGrid) {
             if (row === bluePosition.row && col === bluePosition.col) {
                 // Make the tractor square blue
                 square.classList.add('blue');
-            } else {
-                if (row === farmhousePos && col === farmhousePos) {
-                    // Farmhouse
-                    square.classList.add('red');
-                } else {
-                    // Crops
-                    if (cropGrid[row][col] > 9) {
-                        square.classList.add('yellow');
-                    } else if (cropGrid[row][col] > 0) {
-                        square.classList.add('green');
-                    }
-                }
+            } else if (row === farmhousePos && col === farmhousePos) {
+                // Farmhouse
+                square.classList.add('red');
+            } else if (row === foxPosition.row && col === foxPosition.col){
+                square.classList.add('fox');
+            } else if (cropGrid[row][col] > 9) {
+                square.classList.add('yellow');
+            } else if (cropGrid[row][col] > 0) {
+                square.classList.add('green');
             }
 
             gridContainer.appendChild(square);
@@ -121,6 +119,26 @@ function playGame() {
                     blueDirection = 'stop';
                 }
             }
+        }
+
+        // Update fox position
+        let newRowFox = foxPosition.row;
+        let newColFox = foxPosition.col;
+
+        if (Math.random() > 0.5) {
+            newRowFox = (newRowFox+gridSize-1)%gridSize;
+        } else {
+            newRowFox = (newRowFox+gridSize+1)%gridSize;
+        }
+        if (Math.random() > 0.5) {
+            newColFox = (newColFox+gridSize-1)%gridSize;
+        } else {
+            newColFox = (newColFox+gridSize+1)%gridSize;
+        }
+        foxPosition = { row: newRowFox, col: newColFox }; // Update position
+
+        if (cropGrid[newRowFox][newColFox] > 0 && Math.random() > 0.75) {
+            cropGrid[newRowFox][newColFox] = 0;
         }
 
         createGrid(gridSize, cropGrid);
