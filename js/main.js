@@ -53,7 +53,6 @@ function growCrops(arr) {
             }
         }
     }
-    return arr
 }
 
 // Function to automatically move the blue square
@@ -90,7 +89,7 @@ function playGame() {
         }
 
         // Grow the crops
-        cropGrid = growCrops(cropGrid);
+        growCrops(cropGrid);
 
         // Handle movement
         if (blueFuel > 0) {
