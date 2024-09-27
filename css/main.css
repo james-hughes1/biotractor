@@ -38,6 +38,7 @@
 #fuelBarContainer {
     width: 100%;
     height: 20px;
+    margin-bottom: 10px;
     background-color: gray; /* Background of the bar */
     border: 1px solid black;
 }
@@ -51,7 +52,6 @@
 #cropBarContainer {
     width: 100%;
     height: 20px;
-    margin-bottom: 10px;
     background-color: gray; /* Background of the bar */
     border: 1px solid black;
 }

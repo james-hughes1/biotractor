@@ -4,8 +4,8 @@ const farmhousePos = Math.floor(gridSize / 2)
 let bluePosition = { row: 3, col: 3 }; // Initial blue square position
 let foxPosition = { row: 8, col: 8 }; // Fox position
 let blueDirection = 'down';
-let blueFuel = 50;
-let cropStore = 50;
+let blueFuel = 75;
+let cropStore = 75;
 
 // Function to create a grid
 function createGrid(size, cropGrid) {
@@ -65,6 +65,7 @@ function playGame() {
     bluePosition = { row: 3, col: 3 }; // Initial blue square position
     blueDirection = 'down';
     blueFuel = 75;
+    cropStore = 75;
 
     // Create crops
     let cropGrid = [];
@@ -81,6 +82,8 @@ function playGame() {
 
     // Initial display
     createGrid(gridSize, cropGrid);
+    updateFuelBar();
+    updateCropBar();
 
     // Game loop
     intervalId = setInterval(() => {
@@ -126,15 +129,19 @@ function playGame() {
         let newColFox = foxPosition.col;
 
         if (Math.random() > 0.5) {
-            newRowFox = (newRowFox+gridSize-1)%gridSize;
+            if (Math.random() > 0.5) {
+                newRowFox = (newRowFox+gridSize-1)%gridSize;
+            } else {
+                newRowFox = (newRowFox+gridSize+1)%gridSize;
+            }
         } else {
-            newRowFox = (newRowFox+gridSize+1)%gridSize;
+            if (Math.random() > 0.5) {
+                newColFox = (newColFox+gridSize-1)%gridSize;
+            } else {
+                newColFox = (newColFox+gridSize+1)%gridSize;
+            }
         }
-        if (Math.random() > 0.5) {
-            newColFox = (newColFox+gridSize-1)%gridSize;
-        } else {
-            newColFox = (newColFox+gridSize+1)%gridSize;
-        }
+
         foxPosition = { row: newRowFox, col: newColFox }; // Update position
 
         if (cropGrid[newRowFox][newColFox] > 0 && Math.random() > 0.75) {
