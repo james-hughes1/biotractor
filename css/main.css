@@ -62,6 +62,11 @@
     background-color: yellow; /* Color of the fuel bar */
 }
 
+#scoreCounter {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
 /* For very small screens (e.g., phones in portrait mode) */
 @media (max-width: 480px) {
     #gridContainer {

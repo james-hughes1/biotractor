@@ -6,6 +6,7 @@ let foxPosition = { row: 8, col: 8 }; // Fox position
 let blueDirection = 'down';
 let blueFuel = 75;
 let cropStore = 75;
+let score = 0;
 
 // Function to create a grid
 function createGrid(size, cropGrid) {
@@ -48,6 +49,11 @@ function updateCropBar() {
     cropBar.style.width = cropStore + '%'; // Assuming cropStore is a percentage (0 to 100)
 }
 
+function updateScoreCounter() {
+    const scoreCounter = document.getElementById('scoreCounter');
+    scoreCounter.textContent = 'Score: ' + score;
+}
+
 // Grow crops
 function growCrops(arr) {
     for (let row = 0; row < gridSize; row++) {
@@ -66,6 +72,7 @@ function playGame() {
     blueDirection = 'down';
     blueFuel = 75;
     cropStore = 75;
+    score = 0;
 
     // Create crops
     let cropGrid = [];
@@ -113,7 +120,7 @@ function playGame() {
             if (cropGrid[newRow][newCol] === 10) {
                 // Harvest crop
                 cropGrid[newRow][newCol] = 1;
-                if (cropStore < 100) cropStore++;
+                if (cropStore < 100) cropStore = cropStore + 5;
             }
             blueFuel--; // Use fuel
             // Handle farmhouse stopping (only stop once)
@@ -144,13 +151,23 @@ function playGame() {
 
         foxPosition = { row: newRowFox, col: newColFox }; // Update position
 
+        // Destruction
         if (cropGrid[newRowFox][newColFox] > 0 && Math.random() > 0.75) {
             cropGrid[newRowFox][newColFox] = 0;
         }
 
+        // Planting
+        if (newRow != farmhousePos && newCol != farmhousePos && Math.random() > 0.75 && cropGrid[newRow][newCol] === 0) {
+            cropGrid[newRow][newCol] = 1;
+        }
+
+        // Score
+        score++;
+
         createGrid(gridSize, cropGrid);
         updateFuelBar();
         updateCropBar();
+        updateScoreCounter();
     }, 200);
 }
 
