@@ -17,21 +17,21 @@ function createGrid(size, cropGrid) {
             square.dataset.row = row;
             square.dataset.col = col;
 
-            // Crops
-            if (cropGrid[row][col] > 9) {
-                square.classList.add('yellow');
-            } else if (cropGrid[row][col] > 0) {
-                square.classList.add('green');
-            }
-
-            // Farmhouse
-            if (row === farmhousePos && col === farmhousePos) {
-                square.classList.add('red');
-            }
-
-            // Make the initial square blue
             if (row === bluePosition.row && col === bluePosition.col) {
+                // Make the tractor square blue
                 square.classList.add('blue');
+            } else {
+                if (row === farmhousePos && col === farmhousePos) {
+                    // Farmhouse
+                    square.classList.add('red');
+                } else {
+                    // Crops
+                    if (cropGrid[row][col] > 9) {
+                        square.classList.add('yellow');
+                    } else if (cropGrid[row][col] > 0) {
+                        square.classList.add('green');
+                    }
+                }
             }
 
             gridContainer.appendChild(square);
@@ -45,15 +45,15 @@ function updateFuelBar() {
 }
 
 // Grow crops
-function growCrops(cropGrid) {
+function growCrops(arr) {
     for (let row = 0; row < gridSize; row++) {
         for (let col = 0; col < gridSize; col++) {
-            if (cropGrid[row][col] > 0 && cropGrid[row][col] < 10) {
-                cropGrid[row][col] = cropGrid[row][col] + 1;
+            if (arr[row][col] > 0 && arr[row][col] < 10) {
+                arr[row][col] = arr[row][col] + 1;
             }
         }
     }
-    return cropGrid
+    return arr
 }
 
 // Function to automatically move the blue square
