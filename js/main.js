@@ -4,6 +4,7 @@ const farmhousePos = Math.floor(gridSize / 2)
 let bluePosition = { row: 3, col: 3 }; // Initial blue square position
 let blueDirection = 'down';
 let blueFuel = 50;
+let cropStore = 50;
 
 // Function to create a grid
 function createGrid(size, cropGrid) {
@@ -44,12 +45,17 @@ function updateFuelBar() {
     fuelBar.style.width = blueFuel + '%'; // Assuming blueFuel is a percentage (0 to 100)
 }
 
+function updateCropBar() {
+    const cropBar = document.getElementById('cropBar');
+    cropBar.style.width = cropStore + '%'; // Assuming cropStore is a percentage (0 to 100)
+}
+
 // Grow crops
 function growCrops(arr) {
     for (let row = 0; row < gridSize; row++) {
         for (let col = 0; col < gridSize; col++) {
-            if (arr[row][col] > 0 && arr[row][col] < 10) {
-                arr[row][col] = arr[row][col] + 1;
+            if (arr[row][col] > 0 && arr[row][col] < 10 && Math.random() > 0.75) {
+                arr[row][col]++;
             }
         }
     }
@@ -84,8 +90,9 @@ function playGame() {
         let newRow = row;
         let newCol = col;
 
-        if (bluePosition.row === farmhousePos && bluePosition.col === farmhousePos && blueFuel < 100) {
+        if (bluePosition.row === farmhousePos && bluePosition.col === farmhousePos && blueFuel < 100 && cropStore > 0) {
             blueFuel++;
+            cropStore--;
         }
 
         // Grow the crops
@@ -103,13 +110,12 @@ function playGame() {
         if (newRow !== row || newCol !== col) {
             bluePosition = { row: newRow, col: newCol }; // Update position
             if (cropGrid[newRow][newCol] === 10) cropGrid[newRow][newCol] = 1; // Harvest crop
+            if (cropStore < 100) cropStore++;
             blueFuel--; // Use fuel
             // Handle farmhouse stopping (only stop once)
             if (bluePosition.row === farmhousePos && bluePosition.col === farmhousePos) {
                 if (blueFuel < 100) {
                     blueDirection = 'stop';
-                } else {
-                    blueDirection = 'right';
                 }
             }
         }
