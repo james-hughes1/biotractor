@@ -242,4 +242,11 @@ window.onscroll = function () {
     scrollLeft = window.scrollX || document.documentElement.scrollLeft;
 };
 
+const gridContainer = document.getElementById('gridContainer');
+
+// Only prevent scrolling inside the game grid
+gridContainer.addEventListener('touchmove', function(event) {
+    event.preventDefault();
+}, { passive: false });
+
 playGame();
