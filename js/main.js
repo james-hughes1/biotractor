@@ -120,7 +120,7 @@ function playGame() {
             if (cropGrid[newRow][newCol] === 10) {
                 // Harvest crop
                 cropGrid[newRow][newCol] = 1;
-                if (cropStore < 100) cropStore = cropStore + 5;
+                if (cropStore < 96) cropStore = cropStore + 5;
             }
             blueFuel--; // Use fuel
             // Handle farmhouse stopping (only stop once)
@@ -194,20 +194,37 @@ document.addEventListener('touchend', function(event) {
 function handleSwipeGesture() {
     const deltaX = touchEndX - touchStartX;
     const deltaY = touchEndY - touchStartY;
-
-    if (Math.abs(deltaX) > Math.abs(deltaY)) {
-        // Horizontal swipe
-        if (deltaX > 0) {
-            blueDirection = 'right'; // Swipe right
+    if (blueDirection === 'right') {
+        if (deltaX < 0) {
+            blueDirection = 'left';
+        } else if (deltaY > 0 ) {
+            blueDirection = 'down';
         } else {
-            blueDirection = 'left'; // Swipe left
+            blueDirection = 'up';
+        }
+    } else if (blueDirection === 'left') {
+        if (deltaX > 0) {
+            blueDirection = 'right';
+        } else if (deltaY > 0 ) {
+            blueDirection = 'down';
+        } else {
+            blueDirection = 'up';
+        }
+    } else if (blueDirection === 'up') {
+        if (deltaY > 0) {
+            blueDirection = 'down';
+        } else if (deltaX > 0 ) {
+            blueDirection = 'right';
+        } else {
+            blueDirection = 'left';
         }
     } else {
-        // Vertical swipe
-        if (deltaY > 0) {
-            blueDirection = 'down'; // Swipe down
+        if (deltaY < 0) {
+            blueDirection = 'up';
+        } else if (deltaX > 0 ) {
+            blueDirection = 'right';
         } else {
-            blueDirection = 'up'; // Swipe up
+            blueDirection = 'left';
         }
     }
 }
@@ -229,18 +246,6 @@ document.addEventListener('keydown', function(event) {
             break;
     }
 });
-
-// Prevent scrolling
-let scrollTop = window.scrollY || document.documentElement.scrollTop;
-let scrollLeft = window.scrollX || document.documentElement.scrollLeft;
-
-// if any scroll is attempted,
-// set this to the previous value
-window.onscroll = function () {
-    window.scrollTo(scrollLeft, scrollTop); // Prevent scrolling
-    scrollTop = window.scrollY || document.documentElement.scrollTop; // Update values
-    scrollLeft = window.scrollX || document.documentElement.scrollLeft;
-};
 
 const gridContainer = document.getElementById('gridContainer');
 
