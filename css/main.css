@@ -67,14 +67,6 @@
     margin-bottom: 10px;
 }
 
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
-}
-
 /* For very small screens (e.g., phones in portrait mode) */
 @media (max-width: 480px) {
     #gridContainer {
