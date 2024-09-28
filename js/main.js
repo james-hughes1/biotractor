@@ -177,19 +177,6 @@ let touchStartY = 0;
 let touchEndX = 0;
 let touchEndY = 0;
 
-// Listen for touchstart event to detect the starting position
-document.addEventListener('touchstart', function(event) {
-    touchStartX = event.changedTouches[0].screenX;
-    touchStartY = event.changedTouches[0].screenY;
-});
-
-// Listen for touchend event to detect the ending position and determine swipe direction
-document.addEventListener('touchend', function(event) {
-    touchEndX = event.changedTouches[0].screenX;
-    touchEndY = event.changedTouches[0].screenY;
-    handleSwipeGesture();
-});
-
 // Function to detect the swipe direction
 function handleSwipeGesture() {
     const deltaX = touchEndX - touchStartX;
@@ -248,6 +235,19 @@ document.addEventListener('keydown', function(event) {
 });
 
 const gridContainer = document.getElementById('gridContainer');
+
+// Listen for touchstart event to detect the starting position
+gridContainer.addEventListener('touchstart', function(event) {
+    touchStartX = event.changedTouches[0].screenX;
+    touchStartY = event.changedTouches[0].screenY;
+});
+
+// Listen for touchend event to detect the ending position and determine swipe direction
+gridContainer.addEventListener('touchend', function(event) {
+    touchEndX = event.changedTouches[0].screenX;
+    touchEndY = event.changedTouches[0].screenY;
+    handleSwipeGesture();
+});
 
 // Only prevent scrolling inside the game grid
 gridContainer.addEventListener('touchmove', function(event) {
