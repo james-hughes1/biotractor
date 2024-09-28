@@ -85,3 +85,8 @@ body {
   max-height: 100%;
   overflow-y: hidden;
 }
+
+* {
+    user-select: none;
+    touch-action: none;
+}
