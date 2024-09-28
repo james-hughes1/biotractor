@@ -79,3 +79,9 @@
         height: 20px; /* Even smaller squares */
     }
 }
+
+/* Apply a max-width to the body element */
+body {
+  max-height: 100%;
+  overflow-y: hidden;
+}
